@@ -992,13 +992,14 @@ async def confirm_withdrawal(event):
         parse_mode='html'
     )
     
-    # Notify admin
+    # Notify admin with clickable profile link
     admin_text = (
         f"🔔 <b>NEW WITHDRAWAL REQUEST</b>\n\n"
         f"╔═══════════════════╗\n"
         f"║  <b>USER DETAILS</b> ║\n"
         f"╚═══════════════════╝\n\n"
         f"👤 User ID: <code>{user_id}</code>\n"
+        f"👤 Profile: <a href='tg://user?id={user_id}'>CLICK TO CHECK PROFILE</a>\n"
         f"💰 Amount: <b>₹{balance}</b>\n"
     )
     
@@ -1424,6 +1425,7 @@ print("  ✅ Fixed 3-4 tasks per 24 hours")
 print("  ✅ Automatic midnight reset")
 print("  ✅ Detailed statistics")
 print("  ✅ Enhanced admin panel")
+print("  ✅ Clickable profile link for admin")
 print("=" * 60)
 print("\n💡 WITHDRAWAL OPTIONS:")
 print("  1️⃣  UPI ID only")
