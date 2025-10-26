@@ -76,7 +76,7 @@ def get_user_data(user_id):
             'balance': 0,
             'completed_captchas': [],
             'last_reset': datetime.now().strftime('%Y-%m-%d'),
-            'daily_captcha_count': 0,  # NEW: Store daily captcha count
+            'daily_captcha_count': 0,
             'total_earned': 0,
             'total_withdrawn': 0,
             'successful_withdrawals': 0,
@@ -685,8 +685,16 @@ async def handle_text_input(event):
             withdrawal_id = rejection['withdrawal_id']
             amount = rejection.get('amount', 0)
             
+            # Ensure user exists in data before updating
+            target_user_str = str(target_user)
+            if target_user_str not in data:
+                # Recreate user data if missing
+                get_user_data(target_user)
+                data = load_data()
+            
             # Return money
-            data[str(target_user)]['balance'] += amount
+            data[target_user_str]['balance'] += amount
+            save_data(data)
             
             try:
                 await bot.send_message(
